@@ -23,8 +23,6 @@ function cartreducers(state = [], action) {
       return state;
   }
 }
-
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F719872940202000%2F&psig=AOvVaw3" alt= "logo"></img>
 const store = createstore(cartreducers);
 
 export default store;
