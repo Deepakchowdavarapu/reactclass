@@ -8,13 +8,13 @@ import Products from './components/Products/Products';
 function App() {
 
 
-  // const [countA, setCountA] = useState(a); // Assuming 'a' is a number
+  const [countA, setCountA] = useState(a); // Assuming 'a' is a number
 
-  // // Step 3: Create increment and decrement functions
-  // const incrementA = () => setCountA(prevCount => prevCount + 1);
-  // const decrementA = () => setCountA(prevCount => prevCount - 1);
+  // Step 3: Create increment and decrement functions
+  const incrementA = () => setCountA(prevCount => prevCount + 1);
+  const decrementA = () => setCountA(prevCount => prevCount - 1);
 
-  // console.log(countA);
+  console.log(countA);
 
   let[cart, setCart] = useState({});
 
