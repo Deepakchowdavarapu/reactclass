@@ -5,10 +5,12 @@ function AddtoCart(Product , cart , IncreaseQuantity , DecreaseQuantity){
             IncreaseQuantity(Product)
         }else{
             DecreaseQuantity(Product)
+
         }
         
        }
     )
 }
+
 export default AddtoCart;   
 
