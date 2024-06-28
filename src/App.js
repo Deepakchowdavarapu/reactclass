@@ -1,45 +1,65 @@
-import React, { useState } from 'react'; // Step 1: Import useState
-import store from './store';
 import logo from './logo.svg';
 import './App.css';
-import {a, b} from './components/Products/Products';
-import Products from './components/Products/Products';
+import Products from './components/Product/Products.js';
+// import {b} from './Products';
+import Effect from './components/Effect/Effect.js';
+import NavBar from './components/Portfolio/NavBar/NavBar.js';
+import TypeWriter from './components/Portfolio/TypeWriter/TypeWriter.js';
+import Tile from './components/Portfolio/Tile/Tile.js';
+import Banner from './components/Portfolio/Banner/Banner.jsx';
+import ProgressBar from './components/Portfolio/ProgressBar/ProgressBar.jsx';
+import { useState, useEffect } from 'react';
+import { renderToString } from 'react-dom/server';
+import CartContext from './context/CartContext.js';
+
 
 function App() {
+  // console.log(b);
+  // const [percentage,SetPercentage] = useState(0);
+  // useEffect(()=>{
+  //   const interval = setInterval(()=>{
+  //     SetPercentage((prev)=>(prev<90? prev+10 : 100));
+  //   },1000)
+  //   return () => clearInterval(interval)
+  // })
+
+  const [cart, setCart] = useState({});
+
+  function increaseQuantity(product) {
+    
+    const newCart = {...cart};
+
+    if (!newCart[product.title]) {
+      newCart[product.title] = { ...product, quantity:0};
+    } 
+    newCart[product.title].quantity += 1;
+    
+    setCart(newCart);
+  }
+
+  function decreaseQuantity(product) {
+
+    const newCart = {...cart};
+
+    if (!newCart[product.title]) return;
+
+    newCart[product.title].quantity -= 1;
+    if (newCart[product.title].quantity <= 0) {
+      delete newCart[product.title];
+    } 
+    
+    setCart(newCart);
+  }
 
 
-  const [countA, setCountA] = useState(a); // Assuming 'a' is a number
-
-  // Step 3: Create increment and decrement functions
-  const incrementA = () => setCountA(prevCount => prevCount + 1);
-  const decrementA = () => setCountA(prevCount => prevCount - 1);
-
-  console.log(countA);
-
-  let[cart, setCart] = useState({});
-
-    <div>
-      <div>App</div>
-      <div>
-        <button onClick={incrementA}>Increment A</button>
-        <button onClick={decrementA}>Decrement A</button>
-        <div>Count A: {countA}</div>
-      </div>
-    </div>
-
-    function increaseQuantity(){
-      const newcart = {...cart};
-
-      if(!newcart[Product.id]){
-        newcart[Product.id] = {
-          ...Product,
-          quantity: 0
-        };
-      }
-      newcart[Product.id].quantity++;
-      console.log(newcart);
-      setCart(newcart);
-    }
+  
+  return (
+    <CartContext.Provider value={{cart,increaseQuantity,decreaseQuantity}}>
+        <div className="App">
+          <Products />
+        </div>
+    </CartContext.Provider>
+  );
 }
 
 export default App;
